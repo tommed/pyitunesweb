@@ -1,0 +1,36 @@
+Project: 
+ pyitunesweb
+
+Author: 
+ Tom Medhurst <tom@tommed.co.uk>
+
+License:
+ GPL V3 (See LICENSE file)
+
+Description:
+ pyitunesweb is an open source (GPL v3, see LICENSE file) project for being able
+ to stream your iTunes library from over the web. It is made up of the following
+ components:
+ 
+    - iTunes Library XML parser (forked from http://github.com/liamks/pyitunes)
+    - CGI python web interface
+    - Quicktime media player
+
+NOTE:
+ This project is VERY young and will change over the next few weeks, please watch 
+ this project, but download at your own risk! I am unable to give support for this
+ project until it is in a more stable state.
+
+ Also, you should always have a back-up of your iTunes library!!!! I cannot take
+ any responsibility for damage or loss of your library. My opinion is backup 
+ anything you don't want to loose.
+ 
+
+Installation:
+ $ cd libs/pyItunes
+ $ sudo python setup.py install
+ $ cd ../..
+ Now setup a directory in apache to point to this folder (our .htaccess file will do most of the work for you)
+ $ apachectl graceful
+ Edit the webui/index.cgi and alter the values at the top of the file to match your environment
+ View the index.cgi file from a web browser

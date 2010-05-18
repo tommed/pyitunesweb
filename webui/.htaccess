@@ -1,0 +1,3 @@
+AddHandler cgi-script .cgi .py
+Options +ExecCGI +FollowSymLinks
+DirectoryIndex index.htm index.html index.cgi
