@@ -8,6 +8,7 @@ class Song:
 	album = None (String)
 	genre = None (String)
 	kind = None (String)
+	location = None (String)
 	size = None (Integer)
 	total_time = None (Integer)
 	track_number = None (Integer)
@@ -33,6 +34,7 @@ class Song:
 	track_number = None
 	year = None
 	date_modified = None
+	location = None
 	date_added = None
 	bit_rate = None
 	sample_rate = None
