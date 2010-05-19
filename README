@@ -27,11 +27,10 @@ NOTE:
  
 
 Installation:
- $ cd libs/pyItunes
- $ sudo python setup.py install
- $ cd ../..
+ $ cd webui
+ $ cp settings.py.sample settings.py
+ Edit settings.py and alter the values at the top of the file to match your environment
  Now setup a web site or virtual directory in apache to point to this folder 
-   our .htaccess file will do most of the work for you.
+   our .htaccess file will do most of the work for you
  $ apachectl graceful
- Edit the webui/index.cgi and alter the values at the top of the file to match your environment
  View the index.cgi file from a web browser

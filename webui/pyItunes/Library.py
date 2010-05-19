@@ -1,8 +1,9 @@
 from pyItunes.Song import Song
 import time
 class Library:
-	def __init__(self,dictionary):
-		self.songs = self.parseDictionary(dictionary)
+	def __init__(self,library):
+		self.songs = self.parseDictionary(library.dictionary)
+		self.options = library.options
 
 	def parseDictionary(self,dictionary):
 		songs = []

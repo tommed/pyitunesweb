@@ -1,0 +1,10 @@
+
+# the absolute directory to your iTunes directory
+# this MUST be a directory available from 
+itunesPath = "/path/to/itunes/dir"
+
+# the web url for this dir
+publicItunesPath = "/music/iTunes/"
+
+# the path for the itunes library file
+itunesLibraryFile = "%s/iTunes Music Library.xml" % itunesPath

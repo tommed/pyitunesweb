@@ -4,6 +4,7 @@ class XMLLibraryParser:
 		f = open(xmlLibrary)
 		s = f.read()
 		lines = s.split("\n")
+		self.options = {}
 		self.dictionary = self.parser(lines)
 		
 	def getValue(self,restOfLine):
@@ -29,6 +30,9 @@ class XMLLibraryParser:
 				dicts -= 1
 				inSong = False
 				songs[songkey] = temp
+			if dicts == 1 and re.search('<key>(.*?)</key>',line):
+				key,restOfLine = self.keyAndRestOfLine(line)
+				self.options[key] = self.getValue(restOfLine)
 			if dicts == 2 and re.search('<key>(.*?)</key>',line):
 				rawkey = re.search('<key>(.*?)</key>',line).group(0)
 				songkey = re.sub("</*key>","",rawkey)
