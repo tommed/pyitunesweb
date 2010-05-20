@@ -21,5 +21,5 @@ for song in l.songs:
 	if not song.location.endswith(".mp3"):
 		continue
 	location = song.location.replace(l.options["Music Folder"], "")
-	print "<li><a href=\"serve.cgi?s=%s\">%s - %s</a></li>" % (location, song.artist, song.name)
+	print "<li><a href=\"html5.cgi?s=%s\">%s - %s</a></li>" % (location, song.artist, song.name)
 print "</ul>"
