@@ -3,8 +3,14 @@
 # this MUST be a directory available from 
 itunesPath = "/path/to/itunes/dir"
 
+# the number of tracks to show per page
+pageLimit = 20
+
 # the web url for this dir
 publicItunesPath = "/music/iTunes/"
 
 # the path for the itunes library file
 itunesLibraryFile = "%s/iTunes Music Library.xml" % itunesPath
+
+# sqlite db path and filename
+sqldbFile = "/path/to/store/sqldbfile/pyitunesweb.db" 
