@@ -19,8 +19,9 @@ print "Content-Type: text/html\n\n"
 print "<h1>iTunes Library</h1>"
 print "<p>The following tracks have been added to your library:</p>"
 print "<ul>"
+songcount = 0
 for song in l.songs:
-	if not song.location.endswith(".mp3"):
+	if not song.location.endswith(".mp3") and not song.location.endswith(".m4a"):
 		continue
 	# remove absolute file path from track path
 	location = song.location.replace(l.options["Music Folder"], "")
@@ -29,10 +30,12 @@ for song in l.songs:
 	c=sql.cursor()
 	count=c.execute("select count(hash) from songs where hash = ?", (md5hash,)).fetchone()[0]
 	if count == 0:
+		songcount += 1
 		# track needs to be added
 		sql.execute("insert into songs(hash,artist,track,path) values (?,?,?,?)",(md5hash,song.artist,song.name,location))
 		print "<li><a href=\"html5.cgi?s=%s\">%s - %s</a></li>" % (location, song.artist, song.name)
 print "</ul>"
 sql.commit()
 sql.close()
+print '<p>Added %d songs to your library. <a href="../">Proceed to your library</a></p>' % songcount
 
