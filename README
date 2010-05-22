@@ -34,3 +34,10 @@ Installation:
    our .htaccess file will do most of the work for you
  $ apachectl graceful
  View the index.cgi file from a web browser
+ Add the following to the *bottom* of your apache config file (httpd.conf):
+  <Directory /path/to/your/pyitunesweb/website>
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+  </Directory>
