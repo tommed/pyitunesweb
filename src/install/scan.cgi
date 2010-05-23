@@ -6,7 +6,7 @@ cgitb.enable()
 
 sys.path.append('../')
 import settings
-import trackart
+import albumart
 # iTunes
 from pyItunes import *
 pl = XMLLibraryParser(settings.itunesLibraryFile)
@@ -35,7 +35,7 @@ for song in l.songs:
 		# track needs to be added
 		sql.execute("insert into songs(hash,artist,track,path,album) values (?,?,?,?,?)",(md5hash,song.artist,song.name,location,song.album))
 		print "<li><b>%s - %s</b> [%s]</li>" % (song.artist, song.name, song.album)
-		trackart.getartwork(song.artist, song.name) # cache artwork
+		albumart.getartwork(song.artist, song.album) # cache artwork
 print "</ul>"
 sql.commit()
 sql.close()

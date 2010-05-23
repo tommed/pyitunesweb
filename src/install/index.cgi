@@ -19,6 +19,8 @@ def install():
 	conn.execute('''create table songs (hash text, artist text, track text, path text, album text)''')
 	print "- Closing connection"
 	conn.close()
+	print "- Deleting old album art cache"
+	os.system("rm %s/*.txt" % settings.artworkpath)
 	print "Done"
 	print '</pre><input type="button" value="add tracks..." onclick="document.location.href=\'scan.cgi\'"/>'
 

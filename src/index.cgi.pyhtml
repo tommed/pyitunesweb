@@ -3,7 +3,8 @@
 	<head>
 		<title>pyitunesweb | github.com/tommed/pyitunesweb</title>
 		<style type="text/css">
-			.player { position: absolute; top: 10px; right: 10px; }
+			.player { position: absolute; top: 10px; right: 10px; text-align:right; }
+   		#search { margin-bottom:5px; width:100%; }
 		</style>
 		<script>
 			icon = 'images/track.png'
@@ -25,17 +26,17 @@
 	</head>
 	<body>
 
-		<div class="player"><audio id="player" controls autobuffer autoplay/></div>
-		Track Count: #{trackCount} <a href="install/scan.cgi">Scan</a>
+		<div class="player">
+			<form method="get" action="index.cgi">
+				<input type="search" name="search" value="#{searchDefault}" results="5" id="search"/>
+			</form>
+			<audio id="player" controls autobuffer autoplay></audio>
+			<p>#{trackCount} tracks | <a href="install/scan.cgi">Scan</a> | <a href="install/">Reset</a></p>
+		</div>
 
-		<form method="get" action="index.cgi">
-			<input type="search" name="search" value="#{searchDefault}" results="5"/>
-		</form>
-
-		<h2>Songs</h2>
+		<!-- Tracks -->
 		<ul>
-			
-	<?py lastalbum = "__"
+	<?py lastalbum = None
 for song in songs: 
 	albumstart,albumend = albumartwork(song, lastalbum)
 	lastalbum = song[4] ?>

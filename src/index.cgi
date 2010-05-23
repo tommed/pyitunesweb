@@ -3,7 +3,7 @@
 import sqlite3
 import settings
 import cgi, cgitb
-import trackart
+import albumart
 cgitb.enable()
 
 # templating engine
@@ -32,25 +32,25 @@ def calculatePaging():
 	offset = int((pageNumber-1) * settings.pageLimit)
 	return (trackCount,pageCount,offset,pageNumber)
 
-def artwork(artist, track):
-	return trackart.getartwork(artist, track)
+def artwork(artist, album):
+	return albumart.getartwork(artist, album)
 
 def albumartwork(song, lastalbum):
 	start = ''
 	end = ''
 	if song[4] != lastalbum:
-		start = '<h3><img src="{0}" alt="{1} {2}"/>{1} - {2}</h3></li><li>'.format(artwork(song[1],song[2]), song[1], song[4])
+		start = '<h3><img src="{0}" alt="{1} {2}"/>{1} - {2}</h3></li><li>'.format(artwork(song[1],song[4]), song[1], song[4])
 	lastalbum = song[4]
 	return start,end
 
 # main
 trackCount,pageCount,offset,pageNumber = calculatePaging()
 searchDefault = ""
-sqlcmd = "select * from songs order by album,artist,track limit %d offset %d" % (settings.pageLimit, offset)
+sqlcmd = "select * from songs order by album,artist limit %d offset %d" % (settings.pageLimit, offset)
 if "search" in form and len(form.getvalue('search')) > 0:
 	query = form.getvalue('search')
 	searchDefault = query
-	sqlcmd = "select * from songs where artist like '%{0}%' or track like '%{0}%' or album like '%{0}%' order by album,artist,track limit {1} offset {2}".format(query, settings.pageLimit, offset)
+	sqlcmd = "select * from songs where artist like '%{0}%' or track like '%{0}%' or album like '%{0}%' order by album,artist limit {1} offset {2}".format(query, settings.pageLimit, offset)
 tcursor = sql.execute(sqlcmd)
 
 context={
