@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>pyitunesweb | github.com/tommed/pyitunesweb</title>
+		<style type="text/css">
+			.player { position: absolute; top: 10px; right: 10px; }
+		</style>
+		<script>
+			icon = 'images/track.png'
+			function $(elem) { return document.getElementById(elem); }
+			function play(src, artist, track) { 
+				$('player').src = "#{pitpath}iTunes Music/"+src
+				$('player').load()
+				$('player').play() 
+				show_notification(artist, track)
+			}
+			function show_notification(artist, track) {
+				if (window.webkitNotifications.checkPermission() == 0) {
+					window.webkitNotifications.createNotification(icon, artist, track).show()
+				} else {
+					window.webkitNotifications.requestPermission();
+				}
+			}
+		</script>
+	</head>
+	<body>
+
+		<div class="player"><audio id="player" controls autobuffer autoplay/></div>
+		Track Count: #{trackCount} <a href="install/scan.cgi">Scan</a>
+
+		<h2>Search</h2>
+		<form method="get" action="index.cgi">
+			<input type="search" name="search" value="#{searchDefault}" results="5"/>
+		</form>
+
+		<h2>Songs</h2>
+		<ul>
+			
+	<?py for song in songs: ?>
+		<li>
+			<a href="javascript:play('${song[3].replace("'","\\'")}','${song[1].replace("'","\\'")}','${song[2].replace("'","\\'")}');">
+				${song[1]} - ${song[2]}
+			</a>
+		</li>
+	<?py #end ?>
+
+		</ul>
+
+		<hr/><p>
+	<?py if pageNumber > 1: ?>
+		<a href="index.cgi?page=${pageNumber-1}&search=${searchDefault}">&lt; Previous</a>
+	<?py #end ?>
+	Page #{pageNumber} of #{pageCount}
+	<?py if pageNumber != pageCount: ?>
+		<a href="index.cgi?page=${pageNumber+1}&search=${searchDefault}">Next &gt;</a>
+	<?py #end ?>
+	</p>
+
+	</body>
+</html>
+<!--
+# vim: sw=2 ts=2 ai cin
+-->
