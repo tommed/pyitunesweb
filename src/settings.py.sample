@@ -14,3 +14,10 @@ itunesLibraryFile = "%s/iTunes Music Library.xml" % itunesPath
 
 # sqlite db path and filename
 sqldbFile = "/path/to/store/sqldbfile/pyitunesweb.db" 
+
+# last.fm api key
+lastfmApiKey = "f5445769f430b0639728dc22d4a7bcb3"
+
+# where to store track art
+artworkpath = "/path/to/store/artwork"
+publicArtworkPath = "/uri/for/artwork"

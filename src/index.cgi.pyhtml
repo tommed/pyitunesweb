@@ -28,7 +28,6 @@
 		<div class="player"><audio id="player" controls autobuffer autoplay/></div>
 		Track Count: #{trackCount} <a href="install/scan.cgi">Scan</a>
 
-		<h2>Search</h2>
 		<form method="get" action="index.cgi">
 			<input type="search" name="search" value="#{searchDefault}" results="5"/>
 		</form>
@@ -36,24 +35,28 @@
 		<h2>Songs</h2>
 		<ul>
 			
-	<?py for song in songs: ?>
+	<?py lastalbum = "__"
+for song in songs: 
+	albumstart,albumend = albumartwork(song, lastalbum)
+	lastalbum = song[4] ?>
 		<li>
+			#{albumstart}
 			<a href="javascript:play('${song[3].replace("'","\\'")}','${song[1].replace("'","\\'")}','${song[2].replace("'","\\'")}');">
-				${song[1]} - ${song[2]}
+				${song[2]}
 			</a>
+			#{albumend}
 		</li>
-	<?py #end ?>
-
+<?py #end ?>
 		</ul>
 
 		<hr/><p>
-	<?py if pageNumber > 1: ?>
+<?py if pageNumber > 1: ?>
 		<a href="index.cgi?page=${pageNumber-1}&search=${searchDefault}">&lt; Previous</a>
-	<?py #end ?>
+<?py #end ?>
 	Page #{pageNumber} of #{pageCount}
-	<?py if pageNumber != pageCount: ?>
+<?py if pageNumber != pageCount: ?>
 		<a href="index.cgi?page=${pageNumber+1}&search=${searchDefault}">Next &gt;</a>
-	<?py #end ?>
+<?py #end ?>
 	</p>
 
 	</body>

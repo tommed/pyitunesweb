@@ -16,7 +16,7 @@ def install():
 	print "- Creating new database file"
 	conn = sqlite3.connect(settings.sqldbFile)
 	print "- Creating database schema"
-	conn.execute('''create table songs (hash text, artist text, track text, path text)''')
+	conn.execute('''create table songs (hash text, artist text, track text, path text, album text)''')
 	print "- Closing connection"
 	conn.close()
 	print "Done"
