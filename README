@@ -14,7 +14,7 @@ Description:
  
     - iTunes Library XML parser (forked from http://github.com/liamks/pyitunes)
     - CGI python web interface
-    - Quicktime media player
+    - HTML5 media player
 
 NOTE:
  This project is VERY young and will change over the next few weeks, please watch 
