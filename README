@@ -27,13 +27,12 @@ NOTE:
  
 
 Installation:
- $ cd webui
+ $ cd src
  $ cp settings.py.sample settings.py
  Edit settings.py and alter the values at the top of the file to match your environment
  Now setup a web site or virtual directory in apache to point to this folder 
    our .htaccess file will do most of the work for you
  $ apachectl graceful
- View the index.cgi file from a web browser
  Add the following to the *bottom* of your apache config file (httpd.conf):
   <Directory /path/to/your/pyitunesweb/website>
         Options FollowSymLinks
@@ -41,3 +40,4 @@ Installation:
         Order allow,deny
         Allow from all
   </Directory>
+ View the index.cgi file from a web browser
