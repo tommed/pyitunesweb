@@ -39,8 +39,8 @@ def calculatePaging():
 def get_album_artwork(song, lastalbum):
 	result = ''
 	if song[4] != lastalbum:
-		result = '<h3><img src="{0}" alt="{1} {2}"/>{1} - {2}</h3></li><li>'\
-						.format(albumart.get_artwork(song[1],song[4]), song[1], song[4])
+		context = {'artwork': albumart.get_artwork(song[1],song[4]), 'artist': song[1], 'album': song[4]}
+		result = engine.render('templates/album_title.html', context)
 	lastalbum = song[4]
 	return result
 
@@ -63,7 +63,7 @@ def main():
 		"page_count":page_count,
 	}
 	print "Content-Type: text/html\n"
-	print engine.render("index.cgi.pyhtml", context)
+	print engine.render("templates/index.html", context)
 
 if __name__ == "__main__":
 	main()

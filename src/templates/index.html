@@ -2,24 +2,11 @@
 <html lang="en">
 	<head>
 		<title>pyitunesweb | github.com/tommed/pyitunesweb</title>
-		<link rel="stylesheet" href="css/default.css"></link>
+		<link rel="stylesheet" href="css/default.css"/>
 		<script>
-			icon = 'images/track.png'
-			function $(elem) { return document.getElementById(elem); }
-			function play(src, artist, track) { 
-				$('player').src = "#{pitpath}iTunes Music/"+src
-				$('player').load()
-				$('player').play() 
-				show_notification(artist, track)
-			}
-			function show_notification(artist, track) {
-				if (window.webkitNotifications.checkPermission() == 0) {
-					window.webkitNotifications.createNotification(icon, artist, track).show()
-				} else {
-					window.webkitNotifications.requestPermission();
-				}
-			}
+			PIT_PATH = "#{pitpath}"
 		</script>
+		<script type="text/javascript" src="js/media.js"></script>
 	</head>
 	<body>
 
@@ -39,7 +26,7 @@ for song in songs:
 	lastalbum = song[4] ?>
 		<li>
 			#{artwork_html}
-			<a href="javascript:play('${song[3].replace("'","\\'")}','${song[1].replace("'","\\'")}','${song[2].replace("'","\\'")}');">
+			<a href="javascript:media.play('${song[3].replace("'","\\'")}','${song[1].replace("'","\\'")}','${song[2].replace("'","\\'")}');">
 				${song[2]}
 			</a>
 		</li>
