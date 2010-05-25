@@ -1,26 +1,28 @@
 #!/usr/bin/env python
 import sqlite3
-import cgitb, cgi
+import cgitb
+import cgi
 import md5, sys
 cgitb.enable()
 
 sys.path.append('../')
 import settings
 import albumart
+
 # iTunes
-from pyItunes import *
-pl = XMLLibraryParser(settings.itunesLibraryFile)
+from pyItunes import XMLLibraryParser, Library
+pl = XMLLibraryParser(settings.itunes_library_file)
 l = Library(pl)
 
 # SQL db
-sql=sqlite3.connect(settings.sqldbFile)
+sql=sqlite3.connect(settings.sqldb_file)
 
 print "Content-Type: text/html\n\n"
 
 print "<h1>iTunes Library</h1>"
 print "<p>The following tracks have been added to your library:</p>"
 print "<ul>"
-songcount = 0
+song_count = 0
 for song in l.songs:
 	if not song.location.endswith(".mp3") and not song.location.endswith(".m4a"):
 		continue
@@ -31,7 +33,7 @@ for song in l.songs:
 	c=sql.cursor()
 	count=c.execute("select count(hash) from songs where hash = ?", (md5hash,)).fetchone()[0]
 	if count == 0:
-		songcount += 1
+		song_count += 1
 		# track needs to be added
 		sql.execute("insert into songs(hash,artist,track,path,album) values (?,?,?,?,?)",(md5hash,song.artist,song.name,location,song.album))
 		print "<li><b>%s - %s</b> [%s]</li>" % (song.artist, song.name, song.album)
@@ -39,5 +41,5 @@ for song in l.songs:
 print "</ul>"
 sql.commit()
 sql.close()
-print '<p>Added %d songs to your library. <a href="../">Proceed to your library</a></p>' % songcount
+print '<p>Added %d songs to your library. <a href="../">Proceed to your library</a></p>' % song_count
 

@@ -26,34 +26,33 @@
 		<div class="player">
 			<audio id="player" controls autobuffer autoplay></audio>
 			<form method="get" action="index.cgi">
-				<input type="search" name="search" value="#{searchDefault}" results="5" id="search"/>
+				<input type="search" name="search" value="#{search_default}" results="5" id="search"/>
 			</form>
-			<p>#{trackCount} tracks | <a href="install/scan.cgi">Scan</a> | <a href="install/">Reset</a></p>
+			<p>#{track_count} tracks | <a href="install/scan.cgi">Scan</a> | <a href="install/">Reset</a></p>
 		</div>
 
 		<!-- Tracks -->
 		<ul class="songlist">
 	<?py lastalbum = "_"
 for song in songs: 
-	albumstart,albumend = albumartwork(song, lastalbum)
+	artwork_html = get_album_artwork(song, lastalbum)
 	lastalbum = song[4] ?>
 		<li>
-			#{albumstart}
+			#{artwork_html}
 			<a href="javascript:play('${song[3].replace("'","\\'")}','${song[1].replace("'","\\'")}','${song[2].replace("'","\\'")}');">
 				${song[2]}
 			</a>
-			#{albumend}
 		</li>
 <?py #end ?>
 		</ul>
 
 		<div class="pager">
-<?py if pageNumber > 1: ?>
-		<a href="index.cgi?page=${pageNumber-1}&search=${searchDefault}">&lt; Previous</a>
+<?py if page_number > 1: ?>
+		<a href="index.cgi?page=${page_number-1}&search=${search_default}">&lt; Previous</a>
 <?py #end ?>
-	Page #{pageNumber} of #{pageCount}
-<?py if pageNumber != pageCount: ?>
-		<a href="index.cgi?page=${pageNumber+1}&search=${searchDefault}">Next &gt;</a>
+	Page #{page_number} of #{page_count}
+<?py if page_number != page_count: ?>
+		<a href="index.cgi?page=${page_number+1}&search=${search_default}">Next &gt;</a>
 <?py #end ?>
 	</div>
 
