@@ -92,7 +92,7 @@ media.chkdb = function(tx,rs) {
 media.get_recently_played = function() {
 	if (db_supported)	{
 		db.transaction(function(tx) {
-				tx.executeSql("select distinct * from recently_played limit 8", null, media.get_recently_played_callback, db_err)
+				tx.executeSql("select distinct * from recently_played order by rowid desc limit 8", null, media.get_recently_played_callback, db_err)
 		})
 	} else {
 		$('recentlyPlayed').style.display = 'none'
