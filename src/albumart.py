@@ -3,7 +3,7 @@ import urllib2
 from urllib import quote
 import re
 from cgi import escape
-import md5
+import hashlib
 import os
 
 DEFAULT_ARTWORK = "images/track.png"
@@ -16,7 +16,7 @@ def get_artwork(artist, album, size="medium"):
 		 """
 	if album == None:
 		return DEFAULT_ARTWORK
-	hash = md5.new(str(artist)+str(album)).hexdigest()
+	hash = hashlib.md5(str(artist)+str(album)).hexdigest()
 	path = settings.artwork_path+"/"+hash+".txt"
 	if os.path.exists(path):
 		return open(path, 'r').read()
