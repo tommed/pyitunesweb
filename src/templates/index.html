@@ -6,9 +6,10 @@
 		<script>
 			PIT_PATH = "#{pitpath}"
 		</script>
+		<script type="text/javascript" src="http://static.tommed.co.uk/js/prototype.js"></script>
 		<script type="text/javascript" src="js/media.js"></script>
 	</head>
-	<body>
+	<body onload="media.get_recently_played()">
 
 		<div class="player">
 			<audio id="player" controls autobuffer autoplay></audio>
@@ -18,6 +19,8 @@
 			<p>#{track_count} tracks | <a href="install/scan.cgi">Scan</a> | <a href="install/">Reset</a></p>
 		</div>
 
+	<?py include('templates/recently_played.html') ?>
+
 		<!-- Tracks -->
 		<ul class="songlist">
 	<?py lastalbum = "_"
@@ -26,7 +29,7 @@ for song in songs:
 	lastalbum = song[4] ?>
 		<li>
 			#{artwork_html}
-			<a href="javascript:media.play('${song[3].replace("'","\\'")}','${song[1].replace("'","\\'")}','${song[2].replace("'","\\'")}');">
+			<a href="javascript:media.play('${song[3].replace("'","\\'")}','${song[1].replace("'","\\'")}','${song[2].replace("'","\\'")}', '${song[4]}');">
 				${song[2]}
 			</a>
 		</li>
