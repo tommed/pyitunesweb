@@ -3,14 +3,25 @@
 	<head>
 		<title>pyitunesweb | github.com/tommed/pyitunesweb</title>
 		<link rel="stylesheet" href="css/default.css"/>
+		<link rel="stylesheet" href="http://static.tommed.co.uk/js/closure/goog/demos/css/autocomplete.css"/>
 		<script>
 			PIT_PATH = "#{pitpath}"
 		</script>
 		<script type="text/javascript" src="http://static.tommed.co.uk/js/prototype.js"></script>
+		<script type="text/javascript" src="http://static.tommed.co.uk/js/closure/goog/base.js"></script>
 		<script type="text/javascript" src="js/media.js"></script>
 	</head>
-	<body onload="media.get_recently_played()">
+	<body onload="media.on_load()">
 
+		<section id="browsePanel">
+			<h3>Browse</h3>
+			<p>Artist: <input id="searchByArtist" type="text" value="#{artist_default}" /></p>
+	<?py if artist_default: ?>
+			<div style="text-align:right"><a href="index.cgi">View All</a></div>
+	<?py #end ?>
+		</section>
+
+		<!--Media Player-->
 		<div class="player">
 			<audio id="player" controls autobuffer autoplay></audio>
 			<form method="get" action="index.cgi">
@@ -20,6 +31,7 @@
 		</div>
 
 	<?py include('templates/recently_played.html') ?>
+	<?py include('templates/pager.html') ?>
 
 		<!-- Tracks -->
 		<ul class="songlist">
@@ -36,15 +48,7 @@ for song in songs:
 <?py #end ?>
 		</ul>
 
-		<div class="pager">
-<?py if page_number > 1: ?>
-		<a href="index.cgi?page=${page_number-1}&search=${search_default}">&lt; Previous</a>
-<?py #end ?>
-	Page #{page_number} of #{page_count}
-<?py if page_number != page_count: ?>
-		<a href="index.cgi?page=${page_number+1}&search=${search_default}">Next &gt;</a>
-<?py #end ?>
-	</div>
+<?py include('templates/pager.html') ?>
 
 	</body>
 </html>

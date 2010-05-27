@@ -1,0 +1,11 @@
+
+<div class="pager">
+<a href="index.cgi">Home</a> | 
+<?py if page_number > 1: ?>
+	<a href="index.cgi?page=${page_number-1}&search=${search_default}&artist=#{artist_default}">&lt; Previous</a>
+<?py #end ?>
+Page #{page_number} of #{page_count}
+<?py if page_number != page_count: ?>
+	<a href="index.cgi?page=${page_number+1}&search=${search_default}&artist=#{artist_default}">Next &gt;</a>
+<?py #end ?>
+</div>

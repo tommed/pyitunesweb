@@ -12,6 +12,8 @@ import json
 import albumart
 import cgi
 import cgitb
+import sqlite3
+import settings
 cgitb.enable()
 
 print "Content-Type: application/javascript\n"
@@ -24,11 +26,20 @@ def ajax_get_artwork():
 	print "// "+form.getvalue('album')
 	print json.dumps({'src': albumart.get_artwork(form.getvalue('artist'), form.getvalue('album'))})
 
+def ajax_list_artists():
+	result = []
+	db=sqlite3.connect(settings.sqldb_file)
+	for row in db.execute('select distinct artist from songs order by artist'):
+		result.append(row[0])
+	print json.dumps(result)
+
 def main():
 	"""main entry point for this page"""
 	method = form.getvalue('method').lower()
 	if method == 'artwork.get':
-		 ajax_get_artwork()
+		ajax_get_artwork()
+	elif method == 'artist.list':
+		ajax_list_artists()
 	else:
 		 print json.dumps({ 'error': "Method %s not recognised" % method })
 

@@ -8,6 +8,20 @@ body {
 
 form { padding: 0px; margin: 0px; }
 
+#browsePanel {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	background-color: #bbb;
+	border: 1px solid #999;
+	padding: 5px;
+}
+
+#browsePanel p {
+	margin: 0px;
+	padding: 0px;
+}
+
 .player { 
 	position: fixed; 
 	bottom: 10px; 
@@ -110,9 +124,14 @@ form { padding: 0px; margin: 0px; }
 	margin: 5px;
 }
 
-#recentlyPlayed h3 {
+#recentlyPlayed h3, #browsePanel h3 {
 	font-size: 9pt;
 	color: #777;
+}
+
+#browsePanel h3 {
+	margin: 0px;
+	padding: 0px;
 }
 
 #recentlyPlayedList {

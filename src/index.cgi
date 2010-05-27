@@ -27,6 +27,8 @@ def calculatePaging():
 	track_count = sql.execute("select count(*) from songs").fetchone()[0]
 	if "search" in form and form.getvalue('search'):
 		track_count = sql.execute("select count(*) from songs where artist like '%{0}%' or track like '%{0}%' or album like '%{0}%'".format(form.getvalue('search'))).fetchone()[0]
+	elif "artist" in form and form.getvalue('artist'):
+		track_count = sql.execute("select count(*) from songs where artist = '{0}'".format(form.getvalue('artist'))).fetchone()[0]
 	page_number = 1
 	if "page" in form:
 		page_number = int(form.getvalue('page'))
@@ -48,16 +50,21 @@ def main():
 	"""main entry point for this page"""
 	track_count,page_count,offset,page_number = calculatePaging()
 	search_default = ""
+	artist_default = ""
 	sqlcmd = "select * from songs order by album,artist limit %d offset %d" % (settings.page_limit, offset)
-	if "search" in form and len(form.getvalue('search')) > 0:
+	if "search" in form and form.getvalue('search'):
 		query = form.getvalue('search')
 		search_default = query
 		sqlcmd = "select * from songs where artist like '%{0}%' or track like '%{0}%' or album like '%{0}%' order by album,artist limit {1} offset {2}".format(query, settings.page_limit, offset)
+	elif "artist" in form and form.getvalue('artist'):
+		artist_default = form.getvalue('artist')
+		sqlcmd = "select * from songs where artist = '{0}' order by album,artist limit {1} offset {2}".format(artist_default, settings.page_limit, offset)
 	tcursor = sql.execute(sqlcmd)
 	context={
 		"pitpath":settings.public_itunes_path, 
 		"songs":tcursor, 
 		"search_default":search_default, 
+		"artist_default": artist_default,
 		"track_count":track_count,
 		"page_number":page_number,
 		"page_count":page_count,

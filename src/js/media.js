@@ -1,3 +1,5 @@
+goog.require('goog.ui.AutoComplete.Basic')
+goog.require('goog.events')
 
 // !!! Todo: change this to the album's artwork
 var icon = 'images/track.png'
@@ -29,6 +31,11 @@ function create_db() {
 	db.transaction(function(tx) {
 		tx.executeSql('create table recently_played (src text,artist text,track text,album text)')
 	})
+}
+
+media.on_load = function() {
+	setTimeout("media.get_recently_played()",0) // async
+	setTimeout("media.get_artist_list()", 0) // async
 }
 
 //
@@ -84,6 +91,27 @@ media.chkdb = function(tx,rs) {
 				// !!! Todo: implement
 			}
 	}, db_err)
+}
+
+//
+// get list of artists
+//
+media.get_artist_list = function() {
+	new Ajax.Request("ajax.cgi?method=artist.list", {
+		onSuccess: function(t) {
+			json = t.responseText.evalJSON()
+			if (json.error != null) {
+				if (debug) 
+					alert(json.error)
+			} else {
+				uiac = new goog.ui.AutoComplete.Basic(json, $('searchByArtist'), false, true)
+				goog.events.listen(uiac, 'update', function(e) { 
+					if (e.row != null) 
+						document.location.href="index.cgi?artist="+escape(e.row) 
+				})
+			}
+		}
+	})
 }
 
 //
