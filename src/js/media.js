@@ -151,7 +151,6 @@ media.get_recently_played_callback = function(tx,resultset) {
 				method: 'get',
 				onSuccess: function(t) {
 					json = t.responseText.evalJSON()
-					debugger
 					if (json.error) {
 						if (debug)
 							alert(json.error)

@@ -5,6 +5,7 @@ import settings
 import cgi
 import cgitb
 import albumart
+import time
 
 # handle exceptions over the web
 cgitb.enable()
@@ -69,6 +70,9 @@ def main():
 		"page_number":page_number,
 		"page_count":page_count,
 	}
+	print "Cache-Control: must-revalidate, max-age=3600, smax-age=3600"
+	print "Vary: Accept-Encoding"
+	print "Last-Redraw: %s" % str(time.time())
 	print "Content-Type: text/html\n"
 	print engine.render("templates/index.html", context)
 
