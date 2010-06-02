@@ -48,7 +48,7 @@ def get_artwork_from_lastfm(artist, album, size):
 	#print resultxml
 	resultre=re.search("image size=\"%s\".(.*)</image" % size,resultxml)
 	if resultre == None or len(resultre.group(1)) == 0:
-		return "images/track.png"
+		return DEFAULT_ARTWORK
 	else:
 		return resultre.group(1)
 

@@ -27,10 +27,8 @@ def ajax_get_artwork():
 	print json.dumps({'src': albumart.get_artwork(form.getvalue('artist'), form.getvalue('album'))})
 
 def ajax_list_artists():
-	result = []
 	db=sqlite3.connect(settings.sqldb_file)
-	for row in db.execute('select distinct artist from songs order by artist'):
-		result.append(row[0])
+	result = [row[0] for row in db.execute('select distinct artist from songs order by artist')]
 	print json.dumps(result)
 
 def main():
